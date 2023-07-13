@@ -1,18 +1,17 @@
-import { useState, MouseEvent } from "react";
-import { observer } from "mobx-react-lite";
-import Task from "../../models/Task";
+import { useState } from "react";
+import Task, { ITask } from "../../models/Task";
 import TaskEditForm from "./TaskEditForm";
 
 interface TaskListProps {
-  tasks: Task[];
+  tasks: ITask[];
   onDeleteTask: (taskId: string) => void;
-  onUpdateTask: (updatedTask: Task) => void;
+  onUpdateTask: (updatedTask: ITask) => void;
 }
 
-function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
-  const [editedTask, setEditedTask] = useState<Task | null>(null);
+const TaskList = ({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) => {
+  const [editedTask, setEditedTask] = useState<ITask | null>(null);
 
-  const handleEditClick = (task: Task) => {
+  const handleEditClick = (task: ITask) => {
     setEditedTask(task);
   };
 
@@ -20,7 +19,7 @@ function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
     setEditedTask(null);
   };
 
-  const handleSaveEdit = (updatedTask: Task) => {
+  const handleSaveEdit = (updatedTask: ITask) => {
     onUpdateTask(updatedTask);
     setEditedTask(null);
   };
@@ -80,6 +79,6 @@ function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
       ))}
     </ul>
   );
-}
+};
 
-export default observer(TaskList);
+export default TaskList;

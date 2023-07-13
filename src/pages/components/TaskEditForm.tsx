@@ -1,14 +1,14 @@
 import { useState, ChangeEvent } from "react";
-import Task from "../../models/Task";
+import { ITask } from "../../models/Task";
 
 interface TaskEditFormProps {
-  task: Task;
-  onSave: (updatedTask: Task) => void;
+  task: ITask;
+  onSave: (updatedTask: ITask) => void;
   onCancel: () => void;
 }
 
 const TaskEditForm = ({ task, onSave, onCancel }: TaskEditFormProps) => {
-  const [updatedTask, setUpdatedTask] = useState<Task>(task);
+  const [updatedTask, setUpdatedTask] = useState<ITask>(task);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
