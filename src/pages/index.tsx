@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import TaskStore from "../stores/TaskStore";
-import Task from "../models/Task";
+import Task, { ITask } from "../models/Task";
 
 const taskStore = TaskStore.create({ tasks: [] });
 
@@ -15,7 +15,7 @@ function Home() {
     description: string;
     status: string;
   }) => {
-    const newTask = Task.create({
+    const newTask: ITask = Task.create({
       id: Math.random().toString(),
       ...taskData,
     });
@@ -27,7 +27,7 @@ function Home() {
     taskStore.deleteTask(taskId);
   };
 
-  const handleUpdateTask = (updatedTask: Task) => {
+  const handleUpdateTask = (updatedTask: ITask) => {
     taskStore.updateTask(updatedTask);
   };
 

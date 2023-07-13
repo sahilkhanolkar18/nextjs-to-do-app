@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { observer } from "mobx-react-lite";
 import Task from "../../models/Task";
 import TaskEditForm from "./TaskEditForm";
 
-function TaskList({ tasks, onDeleteTask, onUpdateTask }) {
-  const [editedTask, setEditedTask] = useState(null);
+interface TaskListProps {
+  tasks: Task[];
+  onDeleteTask: (taskId: string) => void;
+  onUpdateTask: (updatedTask: Task) => void;
+}
 
-  const handleEditClick = (task) => {
+function TaskList({ tasks, onDeleteTask, onUpdateTask }: TaskListProps) {
+  const [editedTask, setEditedTask] = useState<Task | null>(null);
+
+  const handleEditClick = (task: Task) => {
     setEditedTask(task);
   };
 
@@ -14,7 +20,7 @@ function TaskList({ tasks, onDeleteTask, onUpdateTask }) {
     setEditedTask(null);
   };
 
-  const handleSaveEdit = (updatedTask) => {
+  const handleSaveEdit = (updatedTask: Task) => {
     onUpdateTask(updatedTask);
     setEditedTask(null);
   };

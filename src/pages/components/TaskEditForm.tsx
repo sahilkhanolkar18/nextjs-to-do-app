@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
+import Task from "../../models/Task";
 
-const TaskEditForm = ({ task, onSave, onCancel }) => {
-  const [updatedTask, setUpdatedTask] = useState(task);
+interface TaskEditFormProps {
+  task: Task;
+  onSave: (updatedTask: Task) => void;
+  onCancel: () => void;
+}
 
-  const handleInputChange = (e) => {
+const TaskEditForm = ({ task, onSave, onCancel }: TaskEditFormProps) => {
+  const [updatedTask, setUpdatedTask] = useState<Task>(task);
+
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setUpdatedTask({ ...updatedTask, [e.target.name]: e.target.value });
   };
 

@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { types, Instance } from "mobx-state-tree";
 
 const Task = types.model("Task", {
   id: types.identifier,
@@ -7,4 +7,7 @@ const Task = types.model("Task", {
   status: types.enumeration(["To Do", "In Progress", "Completed"]),
 });
 
+export interface ITask extends Instance<typeof Task> {}
+
 export default Task;
+//

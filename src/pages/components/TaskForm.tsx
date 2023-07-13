@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
-function TaskForm({ onSave, onCancel }) {
+interface TaskFormProps {
+  onSave: (taskData: {
+    title: string;
+    description: string;
+    status: string;
+  }) => void;
+  onCancel: () => void;
+}
+
+function TaskForm({ onSave, onCancel }: TaskFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSave({ title, description, status });
+    onSave({
+      title,
+      description,
+      status,
+    });
     setTitle("");
     setDescription("");
     setStatus("");
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
+  };
+
+  const handleStatusChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setStatus(e.target.value);
   };
 
   return (
@@ -24,7 +49,7 @@ function TaskForm({ onSave, onCancel }) {
           type="text"
           id="title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
           className="w-full px-4 py-2 border border-gray-300 rounded"
         />
       </div>
@@ -35,7 +60,7 @@ function TaskForm({ onSave, onCancel }) {
         <textarea
           id="description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={handleDescriptionChange}
           className="w-full px-4 py-2 border border-gray-300 rounded"
         ></textarea>
       </div>
@@ -46,7 +71,7 @@ function TaskForm({ onSave, onCancel }) {
         <select
           id="status"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={handleStatusChange}
           className="w-full px-4 py-2 border border-gray-300 rounded"
         >
           <option value="">-- Select Status --</option>
